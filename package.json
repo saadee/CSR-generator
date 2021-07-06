@@ -1,0 +1,22 @@
+{
+  "name": "csr_generator_by_saadee",
+  "version": "1.0.0",
+  "description": "csr generator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Saad Bin Khalid <saadee7223@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@chilkat/ck-node13-linux32": "^9.50.87",
+    "@chilkat/ck-node14-arm": "^9.50.87",
+    "@chilkat/ck-node14-linux64": "^9.50.87",
+    "@chilkat/ck-node14-macosx": "^9.50.87",
+    "@chilkat/ck-node14-win-ia32": "^9.50.87",
+    "@chilkat/ck-node14-win64": "^9.50.87",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}

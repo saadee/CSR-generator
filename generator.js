@@ -19,40 +19,18 @@ if (os.platform() == "win32") {
   var chilkat = require("@chilkat/ck-node14-macosx");
 }
 router.post("/", async (req, res) => {
+  const {
+    commonName,
+    country,
+    state,
+    locality,
+    orgUnit,
+    organization,
+    alternativeName,
+    ip,
+  } = req.body;
   // Note: Requires Chilkat v9.5.0.84 or greater.
 
-  // This requires the Chilkat API to have been previously unlocked.
-  // See Global Unlock Sample for sample code.
-
-  // code for Global Unlock Sample
-  // The Chilkat API can be unlocked for a fully-functional 30-day trial by passing any
-  // string to the UnlockBundle method.  A program can unlock once at the start. Once unlocked,
-  // all subsequently instantiated objects are created in the unlocked state.
-  //
-  // After licensing Chilkat, replace the "Anything for 30-day trial" with the purchased unlock code.
-  // To verify the purchased unlock code was recognized, examine the contents of the LastErrorText
-  // property after unlocking.  For example:
-  //   var glob = new chilkat.Global();
-  //   var success = glob.UnlockBundle("Anything for 30-day trial");
-  //   if (success !== true) {
-  //     console.log(glob.LastErrorText);
-  //     return;
-  //   }
-
-  //   var status = glob.UnlockStatus;
-  //   if (status == 2) {
-  //     console.log("Unlocked using purchased unlock code.");
-  //   } else {
-  //     console.log("Unlocked in trial mode.");
-  //   }
-
-  //   // The LastErrorText can be examined in the success case to see if it was unlocked in
-  //   // trial more, or with a purchased unlock code.
-  //   console.log(glob.LastErrorText);
-  // code for Global Unlock Sample
-
-  // First generate an RSA private key.
-  // (It is also possible to create CSRs based on ECDSA private keys..)
   var rsa = new chilkat.Rsa();
 
   // Generate a random 2048-bit RSA key.
@@ -70,22 +48,22 @@ router.post("/", async (req, res) => {
   var csr = new chilkat.Csr();
 
   // Specify the Common Name.
-  csr.CommonName = "mysubdomain.mydomain.com";
+  csr.CommonName = commonName;
 
   // Country Name (2 letter code)
-  csr.Country = "GB";
+  csr.Country = country;
 
   // State or Province Name (full name)
-  csr.State = "Yorks";
+  csr.State = state;
 
   // Locality Name (eg, city)
-  csr.Locality = "York";
+  csr.Locality = locality;
 
   // Organization Name (eg, company)
-  csr.Company = "Internet Widgits Pty Ltd";
+  csr.Company = organization;
 
   // Organizational Unit Name (eg, secion/division)
-  csr.CompanyDivision = "IT";
+  csr.CompanyDivision = orgUnit;
 
   // Email address
   csr.EmailAddress = "support@mydomain.com";
@@ -93,9 +71,12 @@ router.post("/", async (req, res) => {
   // Add Subject Alternative Names
   // (The AddSan method is added in Chilkat v9.5.0.84)
   // Call AddSan for each alternative name.
-  success = csr.AddSan("dnsName", "mydomain.com");
-  success = csr.AddSan("dnsName", "mysubdomain.mydomain.com");
-  success = csr.AddSan("ipAddress", "192.168.0.123");
+  if (alternativeName.length > 0) {
+    alternativeName?.map((name) => {
+      success = csr.AddSan("dnsName", name);
+    });
+  }
+  success = csr.AddSan("ipAddress", ip);
 
   // Create the CSR using the private key.
   var pemStr = csr.GenCsrPem(privKey);
@@ -111,7 +92,7 @@ router.post("/", async (req, res) => {
   var fac = new chilkat.FileAccess();
   fac.WriteEntireTextFile("qa_output/csr1.pem", pemStr, "utf-8", false);
 
-  console.log(pemStr);
+  //   console.log(pemStr);
   res.json({ status: 200, csr: pemStr });
   // Show the CSR.
 });

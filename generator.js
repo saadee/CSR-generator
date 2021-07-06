@@ -92,7 +92,7 @@ router.post("/", async (req, res) => {
   var fac = new chilkat.FileAccess();
   fac.WriteEntireTextFile("qa_output/csr1.pem", pemStr, "utf-8", false);
 
-  //   console.log(pemStr);
+    console.log(pemStr);
   res.json({ status: 200, csr: pemStr });
   // Show the CSR.
 });

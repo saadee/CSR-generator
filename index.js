@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
 var cors = require("cors");
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use("/api/generate", require("./generator"));
 // generating csr
 app.get("/*", (req, res) => {
-  res.send("CSR GENERATOR By Saad Bin Khalid ");
+  res.sendFile(path.join(__dirname, "/", "index.html"));
 });
 
 const PORT = process.env.PORT || 8000;

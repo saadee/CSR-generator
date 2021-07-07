@@ -17,6 +17,7 @@
     "@chilkat/ck-node14-win-ia32": "^9.50.87",
     "@chilkat/ck-node14-win64": "^9.50.87",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "node-forge": "^0.10.0"
   }
 }

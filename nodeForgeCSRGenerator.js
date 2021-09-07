@@ -34,6 +34,7 @@ router.post("/", async (req, res) => {
       shortName: "OU",
       value: "Test",
     },
+   
   ]);
   // add optional attributes
   csr.setAttributes([

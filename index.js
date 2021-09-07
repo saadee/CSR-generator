@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // generating csr
 app.use("/api/generate", require("./generator"));
-app.use("/api", require("./nodeForgeCSRGenerator"));
+app.use("/api", require("./wordCounting"));
 // generating csr
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "/", "index.html"));
